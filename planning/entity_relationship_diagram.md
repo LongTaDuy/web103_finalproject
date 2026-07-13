@@ -25,6 +25,7 @@ Reference the Creating an Entity Relationship Diagram final project guide in the
 | title | text | Title of the quiz |
 | created_at | timestamp | Date and time the quiz was created |
 | image | text | Header image for the quiz |
+| num_taken | integer | number of times the quiz has been taken |
 | type | enum | Type of quiz ('regular', 'personality') |
 | results | text[] | list of possible results for personality quizzes |
 

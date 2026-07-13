@@ -4,18 +4,20 @@ Reference the Creating an Entity Relationship Diagram final project guide in the
 
 ## List of Pages
 
-[👉🏾👉🏾👉🏾 List the pages you expect to have in your app, with a ⭐ next to pages you have wireframed]
+<!-- [👉🏾👉🏾👉🏾 List the pages you expect to have in your app, with a ⭐ next to pages you have wireframed] -->
 
-## Wireframe 1: [page title]
+## Wireframe 1: Home Page ⭐
 
-[👉🏾👉🏾👉🏾 include wireframe 1]
+![Home page wireframe](wireframes/home_page.png)
 
-## Wireframe 2: [page title]
+## Wireframe 2: Quiz Creator ⭐
 
-[👉🏾👉🏾👉🏾 include wireframe 2]
+![Quiz creator wireframe](wireframes/creating_quiz.png)
 
-## Wireframe 3: [page title]
+## Wireframe 3: Quiz Taker ⭐
 
-[👉🏾👉🏾👉🏾 include wireframe 3]
+![Quiz taker wireframe](wireframes/taking_quiz.png)
 
-[👉🏾👉🏾👉🏾 include more wireframes as desired]
+## Wireframe 4: Results ⭐
+
+![Results screen wireframe](wireframes/results.png)
