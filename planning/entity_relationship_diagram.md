@@ -4,47 +4,85 @@ Reference the Creating an Entity Relationship Diagram final project guide in the
 
 ## List of Tables
 
-<!-- [👉🏾👉🏾👉🏾 List each table in your diagram] -->
-- `quizzes`: Table of created quizzes
-- `questions`: Table of questions created for quizzes
+- `quizzes`
+- `questions`
+- `choices`
+- `quiz_attempts`
+- `answers`
 
-## Entity Relationship Diagram
+## Add the Entity Relationship Diagram
 
-<!-- [👉🏾👉🏾👉🏾 Include an image or images of the diagram below. You may also wish to use the following markdown syntax to outline each table, as per your preference.] -->
+[👉🏾👉🏾👉🏾 Include an image or images of the diagram below. You may also wish to use the following markdown syntax to outline each table, as per your preference.]
 
-<!-- | Column Name | Type | Description |
-|-------------|------|-------------|
-| id | integer | primary key |
-| name | text | name of the shoe model |
-| ... | ... | ... | -->
+---
 
-### `quizzes` Table
+## Table Definitions
+
+### `quizzes`
+
 | Column Name | Type | Description |
 |-------------|------|-------------|
-| id | integer | primary key |
+| id | integer | Primary key |
 | title | text | Title of the quiz |
-| created_at | timestamp | Date and time the quiz was created |
-| description | text | Description of the quiz |
-| type | enum | Type of quiz ('regular', 'personality') |
-| results | text[] | list of possible results for personality quizzes |
+| description | text | Brief description of the quiz |
+| category | text | Quiz category (Science, History, etc.) |
+| quiz_type | text | Type of quiz (Knowledge or Personality) |
+| creator_name | text | Name of the quiz creator |
+| created_at | timestamp | Date the quiz was created |
 
-### `questions` table
+---
+
+### `questions`
 
 | Column Name | Type | Description |
 |-------------|------|-------------|
-| id | integer | primary key |
-| quiz_id | integer (foreign key) | id of the associated quiz |
-| question | text | question |
-| choices | answer_choice[] (composite type) | answer choices for personality quiz questions |
-| correct_answer | text | correct answer to the question (for regular quizzes only) |
+| id | integer | Primary key |
+| quiz_id | integer | Foreign key referencing `quizzes.id` |
+| question_text | text | Quiz question |
+| question_order | integer | Order in which the question appears |
 
-The `choices` column of the `questions` table will make use of a custom composite type to represent the question's answer choices.
+---
 
-```sql
-CREATE TYPE answer_choice AS (
-    content text,
-    result  text
-)
-```
+### `choices`
 
-The `content` field represents the text content of the answer choice that is visible to the user, while `result` is the personality result that the choice is linked to. For example, if an answer choice has the value `('Red', 'ISTJ')`, and this answer choice is chosen by the user, then one point is added to the score for `'ISTJ'`, and the user's result would be the value with the most points. However, if the question is made for a regular quiz, then the `result` field will be `NULL`.
+| Column Name | Type | Description |
+|-------------|------|-------------|
+| id | integer | Primary key |
+| question_id | integer | Foreign key referencing `questions.id` |
+| choice_text | text | Answer choice |
+| is_correct | boolean | Indicates the correct answer for knowledge quizzes |
+| personality_type | text | Personality result associated with the answer (used for personality quizzes) |
+
+---
+
+### `quiz_attempts`
+
+| Column Name | Type | Description |
+|-------------|------|-------------|
+| id | integer | Primary key |
+| quiz_id | integer | Foreign key referencing `quizzes.id` |
+| username | text | Name of the user taking the quiz |
+| score | integer | Final score for knowledge quizzes |
+| personality_result | text | Final personality result (if applicable) |
+| created_at | timestamp | Date and time the quiz was completed |
+
+---
+
+### `answers`
+
+| Column Name | Type | Description |
+|-------------|------|-------------|
+| id | integer | Primary key |
+| attempt_id | integer | Foreign key referencing `quiz_attempts.id` |
+| question_id | integer | Foreign key referencing `questions.id` |
+| choice_id | integer | Foreign key referencing `choices.id` |
+
+---
+
+### Database Relationships
+
+- One **quiz** can have many **questions**.
+- One **question** can have many **choices**.
+- One **quiz** can have many **quiz attempts**.
+- One **quiz attempt** can contain many **answers**.
+- Each **answer** references one **question** and one selected **choice**.
